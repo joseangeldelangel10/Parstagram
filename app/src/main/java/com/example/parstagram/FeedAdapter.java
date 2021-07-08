@@ -1,6 +1,8 @@
 package com.example.parstagram;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Parcel;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.parse.ParseFile;
+
+import org.parceler.Parcels;
 
 import java.util.List;
 
@@ -64,6 +68,15 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+            ivImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(context, DetailedViewActivity.class);
+                    //intent.putExtra("post", Parcels.wrap(post));
+                    intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 

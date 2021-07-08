@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FeedActivity extends AppCompatActivity {
-    private  String TAG = "FeedActivity";
+    private  final String TAG = "FeedActivity";
     protected FeedAdapter adapter;
     protected List<Post> allPosts;
     private SwipeRefreshLayout swipeContainer;
@@ -33,18 +33,15 @@ public class FeedActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed);
-
         rvFeed = findViewById(R.id.rvFeed);
 
-        // initialize the array that will hold posts and create a PostsAdapter
+        /* ------------------------------------------------------------------------------------------------------------------------------------
+                                                        WE CONFIGURE RV & ADAPTER
+        ------------------------------------------------------------------------------------------------------------------------------------*/
         allPosts = new ArrayList<>();
         adapter = new FeedAdapter(this, allPosts);
-
-        // set the adapter on the recycler view
         rvFeed.setAdapter(adapter);
-        // set the layout manager on the recycler view
         rvFeed.setLayoutManager(new LinearLayoutManager(this));
-        // query posts from Parstagram
 
         /* ------------------------------------------------------------------------------------------------------------------------------------
                                                         SWIPE CONTAINER SECTION
@@ -62,7 +59,7 @@ public class FeedActivity extends AppCompatActivity {
         });
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
-
+        /* ------------------------------------------------------------------------------------------------------------------------------------*/
 
         queryPosts();
 

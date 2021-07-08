@@ -31,6 +31,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
     Button btSubmitPhoto;
     File photoFile;
     String photoFileName = "photo.jpg";
+    MenuItem miActionProgressItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,9 @@ public class MainActivity extends AppCompatActivity {
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
         Uri fileProvider = FileProvider.getUriForFile(MainActivity.this, "com.codepath.fileprovider", photoFile);
+
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+        //intent.putExtra(MediaStore.EXTRA_OUTPUT, resizedFileProvider);
 
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
@@ -123,7 +127,11 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
                 // RESIZE BITMAP, see section below
                 // Load the taken image into a preview
-                ivPhotoTaken.setImageBitmap(takenImage);
+                // See code above
+
+                Bitmap resizedBitmap = BitmapScaler.scaleToFitWidth(takenImage, 255);
+                //ivPhotoTaken.setImageBitmap(takenImage);
+                ivPhotoTaken.setImageBitmap(resizedBitmap);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
@@ -148,6 +156,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void savePost(String description, ParseUser currentUser, File photoFile) {
+        showProgressBar();
         Post post = new Post();
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
@@ -159,9 +168,11 @@ public class MainActivity extends AppCompatActivity {
                 if (e != null){
                     Log.e(TAG, "post saving failed!");
                     Toast.makeText(MainActivity.this, "post failed try again", Toast.LENGTH_SHORT);
+                    hideProgressBar();
                     return;
                 }
                 Log.i(TAG, "post succeded");
+                hideProgressBar();
                 etPhotoDescription.setText("");
                 ivPhotoTaken.setImageResource(0);
             }
@@ -190,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.timeline_menu, menu);
+            MenuItem newPost = menu.findItem(R.id.new_post);
+            newPost.setVisible(false);
+            miActionProgressItem = menu.findItem(R.id.miActionProgress);
             return true;
         }
         catch (Exception exception){
@@ -220,4 +234,17 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void showProgressBar() {
+        if (miActionProgressItem != null) {
+            miActionProgressItem.setVisible(true);
+        }
+    }
+
+    public void hideProgressBar() {
+        if (miActionProgressItem != null) {
+            miActionProgressItem.setVisible(false);
+        }
+    }
+
 }
