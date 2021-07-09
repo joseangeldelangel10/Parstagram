@@ -27,8 +27,8 @@ import com.parse.ParseUser;
 public class MainActivity extends AppCompatActivity {
 
     private final String TAG = "MainActivity";
-
-    MenuItem miActionProgressItem;
+    public static String fontFamily = "cursive";
+    public static MenuItem myActionProgressItem;
     BottomNavigationView bottomNavigationItemView;
     Fragment fragment;
 
@@ -37,28 +37,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /* --------------------------- NAVIGATION BAR INSTANTIATION & FUNCTIONALITY ---------------------------*/
         bottomNavigationItemView = findViewById(R.id.bottom_navigation);
-
         final FragmentManager fragmentManager = getSupportFragmentManager();
-        /*--------------------- ACTION BAR (ICON) ------------------------*/
-        ActionBar actionBar;
-        actionBar = getSupportActionBar();
-        actionBar.setDisplayShowHomeEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(true);
-
-        SpannableString s = new SpannableString("Parstagram");
-        s.setSpan(new TypefaceSpan("cursive"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new RelativeSizeSpan(2f), 0,10, 0);
-        actionBar.setTitle(s);
-
-        /*---------------------------------------------------------*/
-        
-        bottomNavigationItemView.setBackgroundColor(getResources().getColor(R.color.pinkish));
-        //getWindow().setNavigationBarColor(getResources().getColor(R.color.white));
         bottomNavigationItemView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                //fragment = null;
                 switch (item.getItemId()) {
                     case R.id.action_profile:
                         Log.i(TAG, "profile selected");
@@ -80,6 +64,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         bottomNavigationItemView.setSelectedItemId(R.id.action_home);
+        /*-----------------------------------------------------------------------------------------*/
+
+
+        /*--------------------- ACTION BAR & NAVIGATION BAR ------------------------*/
+        ActionBar actionBar;
+        actionBar = getSupportActionBar();
+        actionBar.setDisplayShowHomeEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(true);
+
+        SpannableString s = new SpannableString(getString(R.string.app_name));
+        s.setSpan(new TypefaceSpan("cursive"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new RelativeSizeSpan(2f), 0,getString(R.string.app_name).length(), 0); // is 2f hexadecimal??, how can we use a custom font in here?
+        actionBar.setTitle(s);
+        
+        bottomNavigationItemView.setBackgroundColor(getResources().getColor(R.color.pinkish));
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.pinkish));
+
+        /*-----------------------------------------------------------------------------------------*/
     }
 
     @Override
@@ -87,9 +89,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.timeline_menu, menu);
-            MenuItem newPost = menu.findItem(R.id.new_post);
-            newPost.setVisible(false);
-            miActionProgressItem = menu.findItem(R.id.miActionProgress);
+            myActionProgressItem = menu.findItem(R.id.miActionProgress);
             return true;
         }
         catch (Exception exception){
@@ -121,15 +121,15 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void showProgressBar() {
-        if (miActionProgressItem != null) {
-            miActionProgressItem.setVisible(true);
+    public static void showProgressBar() {
+        if (myActionProgressItem != null) {
+            myActionProgressItem.setVisible(true);
         }
     }
 
-    public void hideProgressBar() {
-        if (miActionProgressItem != null) {
-            miActionProgressItem.setVisible(false);
+    public static void hideProgressBar() {
+        if (myActionProgressItem != null) {
+            myActionProgressItem.setVisible(false);
         }
     }
 

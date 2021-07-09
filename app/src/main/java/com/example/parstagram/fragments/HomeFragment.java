@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,10 +15,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.parstagram.EndlessRecyclerViewScrollListener;
-import com.example.parstagram.FeedActivity;
-import com.example.parstagram.FeedAdapter;
-import com.example.parstagram.Post;
+import com.example.parstagram.MainActivity;
+import com.example.parstagram.functionalityClasses.EndlessRecyclerViewScrollListener;
+import com.example.parstagram.models.FeedAdapter;
+import com.example.parstagram.models.Post;
 import com.example.parstagram.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.FindCallback;
@@ -52,12 +51,12 @@ public class HomeFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        rvFeed = view.findViewById(R.id.rvFeed);
         bottomNavigationItemView = view.findViewById(R.id.bottom_navigation);
 
         /* ------------------------------------------------------------------------------------------------------------------------------------
                                                         WE CONFIGURE RV & ADAPTER
         ------------------------------------------------------------------------------------------------------------------------------------*/
+        rvFeed = view.findViewById(R.id.rvFeed);
         allPosts = new ArrayList<>();
         adapter = new FeedAdapter(getContext(), allPosts);
         rvFeed.setAdapter(adapter);
@@ -135,6 +134,7 @@ public class HomeFragment extends Fragment {
 
     public void queryPosts() {
         // specify what type of data we want to query - Post.class
+        MainActivity.showProgressBar();
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
@@ -149,6 +149,7 @@ public class HomeFragment extends Fragment {
                 // check for errors
                 if (e != null) {
                     Log.e(TAG, "Issue with getting posts", e);
+                    MainActivity.hideProgressBar();
                     return;
                 }
 
@@ -159,6 +160,7 @@ public class HomeFragment extends Fragment {
 
                 // save received posts to list and notify adapter of new data
                 adapter.addAll(posts);
+                MainActivity.hideProgressBar();
             }
         });
     }

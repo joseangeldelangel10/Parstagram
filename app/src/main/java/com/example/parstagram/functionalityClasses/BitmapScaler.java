@@ -1,4 +1,4 @@
-package com.example.parstagram;
+package com.example.parstagram.functionalityClasses;
 
 import android.graphics.Bitmap;
 

@@ -1,4 +1,4 @@
-package com.example.parstagram;
+package com.example.parstagram.functionalityClasses;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;

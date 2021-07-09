@@ -22,9 +22,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.parstagram.BitmapScaler;
 import com.example.parstagram.MainActivity;
-import com.example.parstagram.Post;
+import com.example.parstagram.functionalityClasses.BitmapScaler;
+import com.example.parstagram.models.Post;
 import com.example.parstagram.R;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -157,6 +157,7 @@ public class ComposeFragment extends Fragment {
     }
 
     private void savePost(String description, ParseUser currentUser, File photoFile) {
+        MainActivity.showProgressBar();
         Post post = new Post();
         post.setDescription(description);
         post.setImage(new ParseFile(photoFile));
@@ -168,11 +169,13 @@ public class ComposeFragment extends Fragment {
                 if (e != null){
                     Log.e(TAG, "post saving failed!");
                     Toast.makeText(getContext(), "post failed try again", Toast.LENGTH_SHORT);
+                    MainActivity.hideProgressBar();
                     return;
                 }
                 Log.i(TAG, "post succeded");
                 etPhotoDescription.setText("");
                 ivPhotoTaken.setImageResource(0);
+                MainActivity.hideProgressBar();
             }
         });
     }

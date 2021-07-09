@@ -1,11 +1,9 @@
-package com.example.parstagram;
+package com.example.parstagram.models;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcel;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.RelativeSizeSpan;
 import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,13 +16,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.parstagram.DetailedViewActivity;
+import com.example.parstagram.R;
 import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
 import java.util.List;
 
-import static com.example.parstagram.DetailedViewActivity.calculateTimeAgo;
 
 public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     private Context context;
@@ -83,7 +82,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             //s.setSpan(new RelativeSizeSpan(2f), 0,10, 0);
             tvDescription.setText(s + ".- " + post.getDescription());
             tvUsername.setText(s);
-            tvTimestamp.setText(" · " + calculateTimeAgo(post.getCreatedAt()));
+            tvTimestamp.setText(" · " + post.calculateTimeAgo());
 
             Glide.with(context).load(R.drawable.unfi_like).into(like);
             Glide.with(context).load(R.drawable.unfi_comment).into(comment);

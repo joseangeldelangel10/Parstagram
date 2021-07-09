@@ -12,9 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.example.parstagram.EndlessRecyclerViewScrollListener;
-import com.example.parstagram.FeedAdapter;
-import com.example.parstagram.Post;
+import com.example.parstagram.MainActivity;
+import com.example.parstagram.functionalityClasses.EndlessRecyclerViewScrollListener;
+import com.example.parstagram.models.FeedAdapter;
+import com.example.parstagram.models.Post;
 import com.example.parstagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -80,6 +81,7 @@ public class ProfileFragment extends HomeFragment{
 
     @Override
     public void queryPosts(){
+        MainActivity.showProgressBar();
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
@@ -96,6 +98,7 @@ public class ProfileFragment extends HomeFragment{
                 // check for errors
                 if (e != null) {
                     Log.e(TAG, "Issue with getting posts", e);
+                    MainActivity.hideProgressBar();
                     return;
                 }
 
@@ -106,6 +109,7 @@ public class ProfileFragment extends HomeFragment{
 
                 // save received posts to list and notify adapter of new data
                 adapter.addAll(posts);
+                MainActivity.hideProgressBar();
             }
         });
     }

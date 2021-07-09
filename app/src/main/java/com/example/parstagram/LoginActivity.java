@@ -31,22 +31,27 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        /*--------------------- ACTION BAR (ICON) ------------------------*/
+        /*--------------------- ACTION BAR & NAVIGATION BAR ------------------------*/
         ActionBar actionBar;
         actionBar = getSupportActionBar();
         actionBar.setDisplayShowHomeEnabled(true);
+        // we add fnacy styled "Parstagram" to action bar
         actionBar.setDisplayShowTitleEnabled(true);
-
-        SpannableString s = new SpannableString("Parstagram");
-        s.setSpan(new TypefaceSpan("cursive"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new RelativeSizeSpan(2f), 0,10, 0);
+        SpannableString s = new SpannableString(getString(R.string.app_name));
+        s.setSpan(new TypefaceSpan(MainActivity.fontFamily), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new RelativeSizeSpan(2f), 0, getString(R.string.app_name).length() , 0);
         actionBar.setTitle(s);
 
-        /*---------------------------------------------------------*/
+        /* We change the color of home, back and windows buttons */
+        getWindow().setNavigationBarColor(getResources().getColor(R.color.pinkish));
 
+        /*--------------------------------------------------------------------------*/
+
+        /*--------------------- VIEW REFERENCES ------------------------*/
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btLogin = findViewById(R.id.btLogin);
+        /*--------------------------------------------------------------------------*/
 
         /* ------------------ WE EVALUATE IF THERE IS ALREADY A USER --------------------- */
         if (ParseUser.getCurrentUser() != null){
@@ -68,7 +73,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void loginUser(String username, String password) {
-        Log.i("login", "attempting to login");
+        Log.i(TAG, "attempting to login");
         ParseUser.logInInBackground(username, password, new LogInCallback() {
             @Override
             public void done(ParseUser user, ParseException e) {
@@ -76,21 +81,14 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with login" + e, e);
                     return;
                 }
-                //goMainActivity();
                 goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_SHORT);
+                Toast.makeText(LoginActivity.this, "Success!", Toast.LENGTH_LONG);
             }
         });
     }
 
     private void goMainActivity() {
         Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();   // ALLOWS LOGIN ACT TO GO OUT OF THE STACK AND AVOID GOING INTO LOGIN AGAIN
-    }
-
-    private void goToFeed() {
-        Intent i = new Intent(this, FeedActivity.class);
         startActivity(i);
         finish();   // ALLOWS LOGIN ACT TO GO OUT OF THE STACK AND AVOID GOING INTO LOGIN AGAIN
     }
