@@ -3,9 +3,14 @@ package com.example.parstagram;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcel;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.TypefaceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,8 +24,9 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
+import static com.example.parstagram.DetailedViewActivity.calculateTimeAgo;
 
+public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     private Context context;
     private List<Post> posts;
 
@@ -50,20 +56,52 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvUsername;
+        private TextView tvTimestamp;
         private ImageView ivImage;
         private TextView tvDescription;
+        private ImageButton like;
+        private ImageButton comment;
+        private ImageButton dm;
+        private boolean liked = false;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             ivImage = itemView.findViewById(R.id.ivPostPhoto);
             tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvTimestamp = itemView.findViewById(R.id.tvTimestamp);
+            like = itemView.findViewById(R.id.btLike);
+            comment = itemView.findViewById(R.id.btComment);
+            dm = itemView.findViewById(R.id.btDM);
         }
 
         public void bind(Post post) {
             // Bind the post data to the view elements
-            tvDescription.setText(post.getDescription());
-            tvUsername.setText(post.getUser().getUsername());
+
+            SpannableString s = new SpannableString(post.getUser().getUsername());
+            s.setSpan(new TypefaceSpan("bold"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            //s.setSpan(new RelativeSizeSpan(2f), 0,10, 0);
+            tvDescription.setText(s + ".- " + post.getDescription());
+            tvUsername.setText(s);
+            tvTimestamp.setText(" · " + calculateTimeAgo(post.getCreatedAt()));
+
+            Glide.with(context).load(R.drawable.unfi_like).into(like);
+            Glide.with(context).load(R.drawable.unfi_comment).into(comment);
+            Glide.with(context).load(R.drawable.unfi_dm).into(dm);
+
+            like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!liked){
+                        Glide.with(context).load(R.drawable.fi_like).into(like);
+                    }else{
+                        Glide.with(context).load(R.drawable.unfi_like).into(like);
+                    }
+                    liked = !liked;
+                }
+            });
+
+
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);

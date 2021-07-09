@@ -1,9 +1,14 @@
 package com.example.parstagram;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.TypefaceSpan;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +33,12 @@ public class DetailedViewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detailed_view);
+
+        ActionBar actionBar = getSupportActionBar();
+        SpannableString s = new SpannableString("Parstagram");
+        s.setSpan(new TypefaceSpan("cursive"), 0, s.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new RelativeSizeSpan(2f), 0,10, 0);
+        actionBar.setTitle(s);
 
         tvUsername = findViewById(R.id.tvDetailedViewUsername);
         tvTimestamp = findViewById(R.id.tvDetailedViewTimestamp);
