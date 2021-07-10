@@ -40,9 +40,23 @@ Here's a walkthrough of implemented user stories:
 
 <img src='walktrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+In this gif we can appreciate the following user stories:
+*  User sees app icon in home screen
+*  User can log in of his or her account
+*  The current signed in user is persisted across app restarts
+*  User can make new posts
+
 <img src='walktrough2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+*  User can view the last 20 posts submitted to "Instagram"
+*  User can pull to refresh the last 20 posts submitted to "Instagram"
+*  User can tap a post to go to a Post Details activity. This new activity should show the post's timestamp and caption.
+
 <img src='walktrough3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+* User can switch between different tabs using using fragments and a Bottom Navigation View
+* User is able to sign up
+* User is able to log out
 
 GIF created with [Kap](https://getkap.co/).
 
