@@ -26,7 +26,7 @@ The following **bonus** features are implemented:
 * [x] User should switch between different tabs using using fragments and a Bottom Navigation View
 * [x] Show the username and creation time for each post
 * [ ] Allow the logged in user to add a profile photo 🌆
-* [ ] Display the profile photo with each post
+* [x] Display the profile photo with each post
 * [ ] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts
 * [x] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
 * [ ] User can comment on a post and see all comments for each post in the post details screen.
