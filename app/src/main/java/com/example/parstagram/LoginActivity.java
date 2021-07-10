@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button btLogin;
+    Button btSignUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btLogin = findViewById(R.id.btLogin);
+        btSignUp = findViewById(R.id.btSignUpRedir);
         /*--------------------------------------------------------------------------*/
 
         /* ------------------ WE EVALUATE IF THERE IS ALREADY A USER --------------------- */
@@ -70,6 +72,16 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         /* ------------------------------------------------------------------------------- */
+
+        btSignUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginActivity.this, SignUp.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
     private void loginUser(String username, String password) {

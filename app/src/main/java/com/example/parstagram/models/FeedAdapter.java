@@ -64,6 +64,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private ImageButton comment;
         private ImageButton dm;
         private ImageButton currentUserPP;
+        private ImageView postUserPP;
         private boolean liked = false;
 
         public ViewHolder(@NonNull View itemView) {
@@ -76,7 +77,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             comment = itemView.findViewById(R.id.btComment);
             dm = itemView.findViewById(R.id.btDM);
             currentUserPP = itemView.findViewById(R.id.ibCurrentUserPic);
-
+            postUserPP = itemView.findViewById(R.id.ivOwnerPP);
         }
 
         public void bind(Post post) {
@@ -121,11 +122,16 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             });
 
             //User currentUser = MainActivity.getCurrentUser();
-            MainActivity.getCurrentUser();
+            //7MainActivity.getCurrentUser();
 
             ParseFile currentUserProfileImage = (ParseFile) ParseUser.getCurrentUser().getParseFile("ProfilePic");
             if (currentUserProfileImage != null) {
                 Glide.with(context).load(currentUserProfileImage.getUrl()).into(currentUserPP);
+            }
+
+            ParseFile userProfileImage = (ParseFile) post.getUser().getParseFile("ProfilePic");
+            if (userProfileImage != null) {
+                Glide.with(context).load(userProfileImage.getUrl()).into(postUserPP);
             }
 
         }
