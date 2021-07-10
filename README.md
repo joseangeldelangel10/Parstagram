@@ -12,6 +12,7 @@ The following **required** functionality is completed:
 
 * [x] User sees app icon in home screen
 * [x] User can log in of his or her account
+* [ ] User can sign up and create a new account using the app
 * [x] The current signed in user is persisted across app restarts
 * [x] User can make new posts
 * [x] User can view the last 20 posts submitted to "Instagram"
