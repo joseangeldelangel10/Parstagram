@@ -40,6 +40,10 @@ Here's a walkthrough of implemented user stories:
 
 <img src='walktrough.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+<img src='walktrough2.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+<img src='walktrough3.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
 GIF created with [Kap](https://getkap.co/).
 
 ## Notes
