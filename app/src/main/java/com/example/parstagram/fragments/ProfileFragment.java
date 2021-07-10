@@ -48,14 +48,14 @@ public class ProfileFragment extends HomeFragment{
             /* --------------------------------------------
             // we setup a refresh listener which through fetchTimelineAsync makes a request for new data
             and if the request succeeds we clear actual tweets (from list and rv) and append new ones
-             -------------------------------------------- */
+             --------------------------------------------*/
             @Override
             public void onRefresh() {
                 fetchTimelineAsync(0);
             }
         });
         // Configure the refreshing colors
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        swipeContainer.setColorSchemeResources(R.color.pinkish, android.R.color.holo_green_light, android.R.color.holo_orange_light, android.R.color.holo_red_light);
 
         /* ------------------------------------------------------------------------------------------------------------------------------------
                                                  BINDING INFINITE SCROLLING TO RV
@@ -90,7 +90,7 @@ public class ProfileFragment extends HomeFragment{
         // limit query to latest 20 items
         query.setLimit(7);
         // order posts by creation date (newest first)
-        query.addDescendingOrder("createdAt");
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -121,11 +121,11 @@ public class ProfileFragment extends HomeFragment{
         // include data referred by user key
         query.include(Post.KEY_USER);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
-        query.whereLessThan("createdAt", allPosts.get(allPosts.size()-1).getCreatedAt());
+        query.whereLessThan(Post.KEY_CREATED_AT, allPosts.get(allPosts.size()-1).getCreatedAt());
         // limit query to latest 20 items
         query.setLimit(7);
         // order posts by creation date (newest first)
-        query.addDescendingOrder("createdAt");
+        query.addDescendingOrder(Post.KEY_CREATED_AT);
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override

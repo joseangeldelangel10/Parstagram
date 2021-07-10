@@ -41,6 +41,7 @@ import static android.app.Activity.RESULT_OK;
 public class ComposeFragment extends Fragment {
     private final String TAG = "MainActivity";
     public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 42;
+    protected static final String AUTHORITY_PROVIDER =  "com.codepath.fileprovider";
     EditText etPhotoDescription;
     Button btTakePhoto;
     ImageView ivPhotoTaken;
@@ -106,7 +107,7 @@ public class ComposeFragment extends Fragment {
         // wrap File object into a content provider
         // required for API >= 24
         // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
+        Uri fileProvider = FileProvider.getUriForFile(getContext(), ComposeFragment.AUTHORITY_PROVIDER, photoFile);
 
         intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
         //intent.putExtra(MediaStore.EXTRA_OUTPUT, resizedFileProvider);

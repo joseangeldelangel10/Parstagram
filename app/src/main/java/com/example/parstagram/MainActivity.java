@@ -21,7 +21,9 @@ import android.widget.Toast;
 import com.example.parstagram.fragments.ComposeFragment;
 import com.example.parstagram.fragments.HomeFragment;
 import com.example.parstagram.fragments.ProfileFragment;
+import com.example.parstagram.models.NonParseUser;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -131,6 +133,26 @@ public class MainActivity extends AppCompatActivity {
         if (myActionProgressItem != null) {
             myActionProgressItem.setVisible(false);
         }
+    }
+
+
+    public static void getCurrentUser() {
+        ParseQuery<NonParseUser> query = ParseQuery.getQuery(NonParseUser.class);
+        //query.whereEqualTo("email", "email@example.com");
+        query.findInBackground((users, e) -> {
+            if (e == null) {
+                // The query was successful, returns the users that matches
+                // the criteria.
+                for(NonParseUser user1 : users) {
+                    Log.d("User List ", String.valueOf((user1.get("User") )));
+                }
+            } else {
+                // Something went wrong.
+                //Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.d("User List ","no users");
+            }
+        });
+
     }
 
 }

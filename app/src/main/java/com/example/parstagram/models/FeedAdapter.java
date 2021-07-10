@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.parstagram.DetailedViewActivity;
+import com.example.parstagram.MainActivity;
 import com.example.parstagram.R;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
@@ -61,6 +63,7 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
         private ImageButton like;
         private ImageButton comment;
         private ImageButton dm;
+        private ImageButton currentUserPP;
         private boolean liked = false;
 
         public ViewHolder(@NonNull View itemView) {
@@ -72,6 +75,8 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
             like = itemView.findViewById(R.id.btLike);
             comment = itemView.findViewById(R.id.btComment);
             dm = itemView.findViewById(R.id.btDM);
+            currentUserPP = itemView.findViewById(R.id.ibCurrentUserPic);
+
         }
 
         public void bind(Post post) {
@@ -114,7 +119,18 @@ public class FeedAdapter extends RecyclerView.Adapter<FeedAdapter.ViewHolder> {
                     context.startActivity(intent);
                 }
             });
+
+            //User currentUser = MainActivity.getCurrentUser();
+            MainActivity.getCurrentUser();
+
+            ParseFile currentUserProfileImage = (ParseFile) ParseUser.getCurrentUser().getParseFile("ProfilePic");
+            if (currentUserProfileImage != null) {
+                Glide.with(context).load(currentUserProfileImage.getUrl()).into(currentUserPP);
+            }
+
         }
+
+
     }
 
     public void clear() {
