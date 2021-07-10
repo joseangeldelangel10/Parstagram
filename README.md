@@ -1,10 +1,10 @@
 # Parstagram
 
-**Parstagram** is an android app that allows building a todo list and basic todo items management functionality including adding new items, editing and deleting an existing item.
+**Parstagram** is an instagram clone developed for educational propouses that allows the user to upload new posts to a private database. Parstagram has plenty of design features implemented, such as fragments, action bar design and a bottom navigation tab.   
 
-Submitted by: **Your Name Here**
+Submitted by: **Jose Angel Del Angel Dominguez**
 
-Time spent: **X** hours spent in total
+Time spent: **24** hours spent in total
 
 ## User Stories
 
