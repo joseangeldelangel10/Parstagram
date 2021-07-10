@@ -10,17 +10,29 @@ Time spent: **X** hours spent in total
 
 The following **required** functionality is completed:
 
-* [ ] User can **view a list of todo items**
-* [ ] User can **successfully add and remove items** from the todo list
-* [ ] User's **list of items are persisted** across app restarts
+* [x] User sees app icon in home screen
+* [x] User can log in of his or her account
+* [x]The current signed in user is persisted across app restarts
+* [x] User can make new posts
+* [x] User can view the last 20 posts submitted to "Instagram"
+* [x] User can pull to refresh the last 20 posts submitted to "Instagram"
+* [x] User can tap a post to go to a Post Details activity. This new activity should show the post's timestamp and caption.
 
 The following **bonus** features are implemented:
 
-* [ ] User can **tap a todo item in the list and bring up an edit screen for the todo item** and then have any changes to the text reflected back in the todo list
+* [x] Style the login page to look like the real Instagram login page.
+* [x] Style the feed to look like the real Instagram feed.
+* [x] User can load more posts once he or she reaches the bottom of the feed using endless scrolling.
+* [x] User should switch between different tabs using using fragments and a Bottom Navigation View
+* [x] Show the username and creation time for each post
+* [ ] Allow the logged in user to add a profile photo 🌆
+* [ ] Display the profile photo with each post
+* [ ] Tapping on a post's username or profile photo goes to that user's profile page and shows a grid view of the user's posts
+* [x] After the user submits a new post, show an indeterminate progress bar while the post is being uploaded to Parse
+* [ ] User can comment on a post and see all comments for each post in the post details screen.
+* [ ] User can like 👍 a post, and see number of likes for each post in the post details screen.
 
 The following **additional** features are implemented:
-
-* [ ] List anything else that you can get done to improve the app functionality!
 
 ## Video Walkthrough
 
@@ -36,7 +48,7 @@ Describe any challenges encountered while building the app.
 
 ## License
 
-    Copyright [yyyy] [name of copyright owner]
+    Copyright [2021] [Jose Angel Del Angel Dominguez]
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
